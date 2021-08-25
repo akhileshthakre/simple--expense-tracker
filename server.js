@@ -1,6 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv')
-const colros = require('colors')
+const colors = require('colors')
 const morgan = require('morgan')
 const connectDB = require('./config/db')
 
@@ -12,6 +12,13 @@ const transactions = require('./routes/transactions')
 
 
 const app = express()
+
+//Body parser it will allow us to use body parser
+app.use(express.json())
+
+if(process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'))
+}
 
 app.use('/api/v1/transactions',transactions)
 
